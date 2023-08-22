@@ -1,4 +1,5 @@
 const database = firebase.firestore();
+
 const storage = firebase.storage();
 
 const auth = firebase.auth();
@@ -11,6 +12,30 @@ let submit_btn = document.getElementById("submit-btn");
 let current_location = window.location;
 
 const signupUser = () => {
+  if (myName.value === "") {
+    alert("Please enter your name");
+    return;
+  }
+  if (email.value === "") {
+    alert("Please enter your email");
+    return;
+  }
+  if (password.value === "") {
+    alert("Please enter your password");
+    return;
+  }
+  if (profile_image.files[0] !== null) {
+    alert("Please select profile picture");
+    return;
+  }
+
+  // Regular expression to check if the email format is valid
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email.value)) {
+    swal("Invalid Email", "Please enter a valid email address", "warning");
+    return;
+  }
+
   const getFiles = profile_image.files[0];
   const imagesRef = storage.ref().child("profile_images/" + getFiles.name);
   auth
@@ -66,10 +91,36 @@ const signupUser = () => {
     .catch((error) => {
       var errorCode = error.code;
       var errorMessage = error.message;
-    })};
+      if (error.code === "auth/email-already-in-use") {
+        swal(
+          "Email Already in Use",
+          "Please use a different email address.",
+          "warning"
+        );
+      } else {
+        swal("Error!", "An error occurred. Please try again later.", "error");
+      }
+    })
+};
 // })};
 
 const loginUser = () => {
+
+  if (email.value == "") {
+    alert("Please enter your email");
+    return;
+  }
+  if (password.value == "") {
+    alert("Please enter your password");
+    return;
+  }
+
+  // Regular expression to check if the email format is valid
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email.value)) {
+    swal("Invalid Email", "Please enter a valid email address", "warning");
+    return;
+  }
   auth
     .signInWithEmailAndPassword(email.value, password.value)
     .then((userCredential) => {
@@ -105,5 +156,27 @@ const loginUser = () => {
     .catch((error) => {
       var errorCode = error.code;
       var errorMessage = error.message;
+      // If account not found (email or password incorrect), show the appropriate message
+      if (errorCode === "auth/user-not-found") {
+        swal(
+          {
+            title: "Account Not Found!",
+            text: "Please register to create an account",
+            type: "warning",
+          },
+          function () {
+            window.location.href = "signup.html";
+          }
+        );
+      } else if (errorCode === "auth/wrong-password") {
+        swal(
+          "Incorrect Password",
+          "Please check your password and try again",
+          "error"
+        );
+      } else {
+        // Handle other error scenarios
+        swal("Error!", "An error occurred. Please try again later.", "error");
+      }
     });
 };
