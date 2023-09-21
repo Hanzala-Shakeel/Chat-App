@@ -189,7 +189,8 @@ aside li h2 {
 
 /* Define the thumb (the draggable part of the scrollbar) */
 #chat_messages::-webkit-scrollbar-thumb {
-  background-color: #888;
+  /* background-color: #888; */
+  background-color: #b7b7b7;
   border-radius: 5px;
   
 }
