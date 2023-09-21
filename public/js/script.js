@@ -1,6 +1,7 @@
 // script for hamburger to hide or show
 
 let users_window = document.querySelector(".users-window");
+users_window.style.display = "block";
 
 function show_hide() {
   if (users_window.style.display == "block") {
@@ -69,7 +70,14 @@ function getCurrentUserData(currentHighlightedArea) {
     (user) => user?.user_uid == currentUserId
   )[0];
   printCurrentFocusUserHead(getCurrentUser);
-  show_hide()
+
+  // Check screen width
+  const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+  // Only call show_hide if the screen width is 900px or below
+  if (screenWidth <= 900) {
+    show_hide();
+  }
 }
 
 let senderListener;

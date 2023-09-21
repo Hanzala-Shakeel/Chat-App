@@ -53,6 +53,7 @@ body {
 
 .hamburger {
   cursor: pointer;
+  display: none;
 }
 
 .main {
@@ -128,6 +129,7 @@ aside li {
 
 aside li:hover {
   background-color: #5e616a;
+  transition: 0.3s;
 }
 
 h2 {
@@ -176,25 +178,25 @@ aside li h2 {
 }
 
 /* Define the scrollbar width */
-#chat_messages::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 5px;
 }
 
 /* Define the track of the scrollbar */
-#chat_messages::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
   background-color: #f1f1f1;
   border-radius: 5px;
 }
 
 /* Define the thumb (the draggable part of the scrollbar) */
-#chat_messages::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   /* background-color: #888; */
   background-color: #b7b7b7;
   border-radius: 5px;
 }
 
 /* Define the hover effect for the thumb */
-#chat_messages::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
   background-color: #555;
 }
 
@@ -290,7 +292,6 @@ aside li h2 {
     z-index: 12;
     box-shadow: 0 15px 20px -20px black;
     padding-bottom: 0;
-    display: none;
   }
 
   .chat-window .chats .message {
@@ -306,5 +307,8 @@ aside li h2 {
   }
   aside ul {
     max-height: 73vh;
+  }
+  .hamburger {
+    display: block;
   }
 }
