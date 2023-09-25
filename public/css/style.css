@@ -48,12 +48,14 @@ body {
   background-color: transparent;
   border: none;
   outline: none;
-  /* display: none; */
 }
 
 .hamburger {
-  cursor: pointer;
   display: none;
+}
+
+.logout {
+  cursor: pointer;
 }
 
 .main {
